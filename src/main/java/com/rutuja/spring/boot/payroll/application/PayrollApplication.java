@@ -17,22 +17,12 @@ import org.springframework.context.annotation.Profile;
 @SpringBootApplication
 public class PayrollApplication {
 
-	@Value("${authorName}")
-	String authorName;
 
-	public static void main(String[] args) {
+	public static void main(String... args) {
 
 		SpringApplication.run(PayrollApplication.class, args);
 		log.info("Payroll Application started...");
 
 	}
 
-	@PostConstruct
-	void afterInit(){
-		log.info("Inside post construct ");
-		log.info("Author Name : "+ authorName);
-		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(EmployeeNotFoundAdvice.class);
-		applicationContext.scan("com.basecs101");
-		log.info("Test whether EmployeeNotFoundAdvice bean is created : " + applicationContext.getBean(EmployeeNotFoundAdvice.class));
-	}
 }

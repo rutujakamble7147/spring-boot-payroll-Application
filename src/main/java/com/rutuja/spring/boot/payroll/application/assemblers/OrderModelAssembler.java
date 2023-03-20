@@ -1,13 +1,16 @@
 package com.rutuja.spring.boot.payroll.application.assemblers;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
-
 
 import com.rutuja.spring.boot.payroll.application.Controllers.OrderController;
-import jakarta.persistence.criteria.Order;
+import com.rutuja.spring.boot.payroll.application.model.Order;
+import com.rutuja.spring.boot.payroll.application.model.Status;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+
+
 
 @Component
 public class OrderModelAssembler implements RepresentationModelAssembler<Order, EntityModel<Order>> {
@@ -23,9 +26,8 @@ public class OrderModelAssembler implements RepresentationModelAssembler<Order, 
 
         // Conditional links based on state of the order
 
-        if (order.getStatus() == Status.IN_PROGRESS) {
-            orderModel.add(linkTo(methodOn(OrderController.class).cancel(order.getId())).withRel("cancel"));
-            orderModel.add(linkTo(methodOn(OrderController.class).complete(order.getId())).withRel("complete"));
+        if (order.getStatus()==Status.IN_PROGRESS){
+            orderModel.add(linkTo(methodOn(OrderController.class).cancel(order.getId())).withRel("cancle"));
         }
 
         return orderModel;

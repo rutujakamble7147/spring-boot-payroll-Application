@@ -1,10 +1,10 @@
 package com.rutuja.spring.boot.payroll.application.Controllers;
 
-
 import com.rutuja.spring.boot.payroll.application.CustomException.OrderNotFoundException;
 import com.rutuja.spring.boot.payroll.application.assemblers.OrderModelAssembler;
+import com.rutuja.spring.boot.payroll.application.model.Order;
+import com.rutuja.spring.boot.payroll.application.model.Status;
 import com.rutuja.spring.boot.payroll.application.repository.OrderRepository;
-import jakarta.persistence.criteria.Order;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.MediaTypes;
@@ -33,10 +33,10 @@ public class OrderController {
     }
 
     @GetMapping("/orders")
-    public CollectionModel<EntityModel<Order>> all() {
+    public CollectionModel<EntityModel<Order>>all(){
 
-        List<EntityModel<Order>> orders = orderRepository.findAll().stream() //
-                .map(orderModelAssembler::toModel) //
+        List<EntityModel<Order>>orders=orderRepository.findAll().stream()//
+                .map(orderModelAssembler::toModel)//
                 .collect(Collectors.toList());
 
         return CollectionModel.of(orders, //
